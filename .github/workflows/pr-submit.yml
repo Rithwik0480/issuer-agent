@@ -32,8 +32,6 @@ jobs:
           docker build \
             --no-cache \
             --file Dockerfile.for-ci \
-            --tag issuer-agent:latest \
-            --build-arg NPM_TOKEN=${{ env.NPM_TOKEN }} \
-            .
+            --tag issuer-agent:latest .
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
