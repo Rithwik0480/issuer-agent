@@ -1,4 +1,3 @@
-# This is a basic workflow to help you get started with Actions
 
 name: On PR Submit
 
@@ -6,13 +5,10 @@ name: On PR Submit
 on:
   # Trigger the workflow on push event
   push:
-    # branches: [ main, master, develop, deployment ]
+    #branches: [ main, master, develop, deployment ]
     paths-ignore:
       - 'docs/**'
       - '**.md'
-
-  # Allow manual triggering of the workflow
-  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -34,7 +30,4 @@ jobs:
       - run: |
           docker build \
             --no-cache \
-            --file Dockerfile.for-ci \
-            --tag issuer-agent:latest .
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+            --file Dockerfile.for-ci .
