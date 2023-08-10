@@ -4,8 +4,8 @@ name: On PR Submit
 # Control when the action will run.
 on:
   # Trigger the workflow on push event
-  push:
-    #branches: [ main, master, develop, deployment ]
+  pull_request:
+    branches: [ main, master, develop, deployment ]
     paths-ignore:
       - 'docs/**'
       - '**.md'
