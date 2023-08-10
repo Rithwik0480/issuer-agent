@@ -6,7 +6,7 @@ name: On PR Submit
 on:
   # Trigger the workflow on push event
   push:
-    branches: [ main, master, develop, deployment ]
+    # branches: [ main, master, develop, deployment ]
     paths-ignore:
       - 'docs/**'
       - '**.md'
