@@ -26,7 +26,7 @@ jobs:
       # Check-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Build and tag the image
+      # Build the docker image
       - run: |
           docker build \
             --no-cache \
