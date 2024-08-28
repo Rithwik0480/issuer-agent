@@ -1,4 +1,3 @@
-
 name: On PR Submit
 
 # Control when the action will run.
@@ -11,6 +10,7 @@ on:
       - '**.md'
 
   workflow_dispatch:
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -32,3 +32,10 @@ jobs:
           docker build \
             --no-cache \
             --file Dockerfile.for-ci .
+
+      # SonarQube Scan
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
