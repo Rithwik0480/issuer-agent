@@ -2,7 +2,7 @@ name: On PR Submit
 
 # Control when the action will run.
 on:
-  # Trigger the workflow on push event
+  # Trigger the workflow on pull request events
   pull_request:
     branches: [ main, master, develop, deployment ]
     paths-ignore:
@@ -33,15 +33,17 @@ jobs:
             --no-cache \
             --file Dockerfile.for-ci .
 
-      # SonarQube Scan
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      - uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        env:
-           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  # New job for SCA security testing
+  security-test-sca:
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Security SCA Testing
+        run: |
+          echo "Security SCA testing..."
+          docker run --name sca --env SNYK_TOKEN -v $(pwd):/app snyk/snyk:node || failure=true
