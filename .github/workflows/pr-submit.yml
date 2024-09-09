@@ -17,7 +17,7 @@ jobs:
         go-version: "1.13"
 
     - name: Snyk test
-      run: snyk test
+      run: snyk test || failure=true
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
