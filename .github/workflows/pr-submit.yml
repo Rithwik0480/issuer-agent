@@ -43,7 +43,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Snyk Authentication
+        run: |
+          docker run --rm \
+            --env SNYK_TOKEN=${{ secrets.SNYK_TOKEN }} \
+            snyk/snyk:node snyk auth $SNYK_TOKEN
+
       - name: Security SCA Testing
         run: |
           echo "Security SCA testing..."
-          docker run --name sca --env SNYK_TOKEN -v $(pwd):/app snyk/snyk:node
+          docker run --rm \
+            --env SNYK_TOKEN=${{ secrets.SNYK_TOKEN }} \
+            -v $(pwd):/app \
+            snyk/snyk:node snyk test
