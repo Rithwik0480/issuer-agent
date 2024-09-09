@@ -9,11 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+
     - uses: snyk/actions/setup@master
+
     - uses: actions/setup-go@v1
       with:
         go-version: "1.13"
+
     - name: Snyk test
       run: snyk test
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+    - name: Run Snyk SCA in Docker
+      run: |
+        docker run --rm \
+          --env SNYK_TOKEN=${{ secrets.SNYK_TOKEN }} \
+          -v $(pwd):/app \
+          snyk/snyk:node snyk test
