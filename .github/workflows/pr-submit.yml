@@ -4,7 +4,7 @@ name: On PR Submit
 on:
   # Trigger the workflow on pull request events
   pull_request:
-    branches: [ main, master, develop, deployment ]
+    branches: [ production ]
     paths-ignore:
       - 'docs/**'
       - '**.md'
@@ -45,9 +45,7 @@ jobs:
 
       - name: Snyk Authentication
         run: |
-          docker run --rm \
-            --env SNYK_TOKEN=${{ secrets.SNYK_TOKEN }} \
-            snyk/snyk:node snyk auth $SNYK_TOKEN
+          echo ${{ secrets.SNYK_TOKEN }} | docker run --rm -i --env SNYK_TOKEN=$(cat) snyk/snyk:node snyk auth
 
       - name: Security SCA Testing
         run: |
