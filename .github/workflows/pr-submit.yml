@@ -46,4 +46,4 @@ jobs:
       - name: Security SCA Testing
         run: |
           echo "Security SCA testing..."
-          docker run --name sca --env SNYK_TOKEN -v $(pwd):/app snyk/snyk:node || failure=true
+          docker run --name sca --env SNYK_TOKEN -v $(pwd):/app snyk/snyk:node
