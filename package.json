@@ -14,10 +14,10 @@
     "dependencies": {
         "@cord.network/sdk": "0.9.1-1rc18",
         "@cord.network/vc-export": "0.9.1-1rc18",
-        "body-parser": "^1.20.2",
+        "body-parser": "^1.20.3",
         "cors": "^2.8.5",
         "dotenv": "^16.0.3",
-        "express": "^4.18.2",
+        "express": "^4.21.0",
         "moment": "^2.30.1",
         "nodemon": "^2.0.21",
         "pg": "^8.10.0",
